@@ -104,6 +104,10 @@ Following the provisioning of the virtual machines, the next critical phase invo
 
 To facilitate comprehensive data collection, a variety tools & Azure resources were configured to collaboratively capture, store, and analyze security-related data. These resources were strategically selected and configured to enable a holistic view of the security landscape affecting the virtual machines deployed in the project.
 
+### **Infrastructure Setup**
+
+1.	***Azure Log Analytics Workspace***:
+
 •	An Azure Log Analytics Workspace was established as the central repository for logs gathered from various Azure resources. This workspace serves as the primary platform for querying and analyzing collected data, enabling a consolidated view of security events and patterns.
 
 2.	**Microsoft Sentinel**:
@@ -118,7 +122,7 @@ To facilitate comprehensive data collection, a variety tools & Azure resources w
 
 •	An Azure Storage Account was provisioned to manage the storage of raw log data, particularly for high-volume logs such as Network Security Group (NSG) flow logs. This setup ensures that large datasets are managed efficiently before they are processed and analyzed in the Log Analytics Workspace.
 
-**Data Visualization and Threat Analysis**
+### **Data Visualization and Threat Analysis**
 
 **Threat Actor Visualization**:
 

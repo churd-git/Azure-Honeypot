@@ -11,7 +11,7 @@ _**Completion State:**_ This honeypot project not only met but exceeded its obje
 ![image](https://github.com/user-attachments/assets/72795e49-0416-4c91-a687-738da0040520)
 
 
-# Technology Utilized
+# Technology/Tools Utilized
 - Microsoft Azure
 - Azure Virtual Machines
 - Azure Log Analytics Workspace
@@ -27,21 +27,13 @@ _**Completion State:**_ This honeypot project not only met but exceeded its obje
 
 # Table of Contents
 
-- [System Configurations & Set-up](#Step-1-System-Configurations-&-Set-up)
-- [Mock Meeting: Policy Buy-In (Stakeholders)](#step-2-mock-meeting-policy-buy-in-stakeholders)
-- [Policy Finalization and Senior Leadership Sign-Off](#step-3-policy-finalization-and-senior-leadership-sign-off)
-- [Mock Meeting: Initial Scan Permission (Server Team)](#step-4-mock-meeting-initial-scan-permission-server-team)
-- [Initial Scan of Server Team Assets](#step-5-initial-scan-of-server-team-assets)
-- [Vulnerability Assessment and Prioritization](#step-6-vulnerability-assessment-and-prioritization)
-- [Distributing Remediations to Remediation Teams](#step-7-distributing-remediations-to-remediation-teams)
-- [Mock Meeting: Post-Initial Discovery Scan (Server Team)](#step-8-mock-meeting-post-initial-discovery-scan-server-team)
-- [Mock CAB Meeting: Implementing Remediations](#step-9-mock-cab-meeting-implementing-remediations)
-- [Remediation Round 1: Outdated Wireshark Removal](#remediation-round-1-outdated-wireshark-removal)
-- [Remediation Round 2: Insecure Protocols & Ciphers](#remediation-round-2-insecure-protocols--ciphers)
-- [Remediation Round 3: Guest Account Group Membership](#remediation-round-3-guest-account-group-membership)
-- [Remediation Round 4: Windows OS Updates](#remediation-round-4-windows-os-updates)
-- [First Cycle Remediation Effort Summary](#first-cycle-remediation-effort-summary)
-
+- [System Configurations & Set-up](#step-1-system-configurations--set-up)
+- [Security Measures & Baseline](#step-2-security-measures--baseline)
+- [Data Collection Methodology](#step-3-data-collection-methodology)
+- [Analysis of Initial Exposure](#step-4-analysis-of-initial-exposure)
+- [Post Hardening Analysis](#step-5-post-hardening-analysis)
+- [Conclusion](#step-6-conclusion)
+    
 ---
 
 ### Step 1) System Configurations & Set-up
@@ -98,13 +90,17 @@ Following the provisioning of the virtual machines, the next critical phase invo
 
 •	The VMs were configured to record detailed logs and security events. Specific queries were utilized to capture essential data regarding attack attempts and system interactions. This logging setup played a pivotal role in establishing a comprehensive incident-oriented baseline, documenting the initial state of security before any hardening measures were implemented.
 
-![MS Sentinel Custom Rules](https://github.com/user-attachments/assets/740363bc-405b-4bac-a139-ffb8935382e3)
+![Sys Logs](https://github.com/user-attachments/assets/86ff2f3d-a2c8-4f96-bf2b-3719a89b7dc5)
 
-#### Step 3) Data Collection Methodology
+![AzureNetworkAnalytics_CL Logs](https://github.com/user-attachments/assets/b384fc90-f5c8-40f0-a05b-60324133a79a)
+
+![Security Event Logs](https://github.com/user-attachments/assets/9a45f192-99cb-4034-9f7a-4e040c9c9033)
+
+### Step 3) Data Collection Methodology
 
 To facilitate comprehensive data collection, a variety tools & Azure resources were configured to collaboratively capture, store, and analyze security-related data. These resources were strategically selected and configured to enable a holistic view of the security landscape affecting the virtual machines deployed in the project.
 
-### **Infrastructure Setup**
+## **Infrastructure Setup**
 
 1.	***Azure Log Analytics Workspace***:
 
@@ -122,17 +118,25 @@ To facilitate comprehensive data collection, a variety tools & Azure resources w
 
 •	An Azure Storage Account was provisioned to manage the storage of raw log data, particularly for high-volume logs such as Network Security Group (NSG) flow logs. This setup ensures that large datasets are managed efficiently before they are processed and analyzed in the Log Analytics Workspace.
 
-### **Data Visualization and Threat Analysis**
+![MS Sentinel Custom Rules](https://github.com/user-attachments/assets/740363bc-405b-4bac-a139-ffb8935382e3)
+
+## **Data Visualization and Threat Analysis**
 
 **Threat Actor Visualization**:
 
 In Microsoft Sentinel, a watchlist was created to assist in visualizing the geographic distribution of potential threat actors. This watchlist enables the generation of heat maps that display the physical locations of these actors, offering insights into attack origination points and highlighting regions with elevated activity levels.
 
-### **Data Flow and Analysis**
+![Linux SSH Auth Map](https://github.com/user-attachments/assets/845e4918-47ff-43ba-b9be-0dbf70c7f829)
+
+![NSG Map](https://github.com/user-attachments/assets/affeb5c2-cd75-4b85-beb0-96c3659a7b90)
+
+![Windows RDP Auth Map](https://github.com/user-attachments/assets/91036e34-3eb1-4fcb-831e-6621dae09616)
+
+## **Data Flow and Analysis**
 
 These interconnected Azure services form a robust ecosystem for the continuous monitoring, recording, and analysis of security data. By leveraging this setup, the project captures a wide range of security metrics, providing a before-and-after snapshot of the environment’s security posture.
 
-### **Data Recording Format**
+## **Data Recording Format**
 
 The collected data is structured to facilitate clear before-and-after comparisons, crucial for assessing the effectiveness of the security measures implemented. Key metrics include:
 
@@ -148,216 +152,150 @@ The collected data is structured to facilitate clear before-and-after comparison
 
 •	NSG Inbound Malicious Flows Allowed
 
----
-
-### Step 3) Policy Finalization and Senior Leadership Sign-Off
-
-After gathering feedback from the server team, the policy is revised, addressing aggressive remediation timelines. With final approval from upper management, the policy now guides the program, ensuring compliance and reference for pushback resolution.  
+![HP Project Stats Record](https://github.com/user-attachments/assets/4c40b60d-f908-4fbc-b2a6-3c23bf82b221)
 
 ---
 
-### Step 4) Mock Meeting: Initial Scan Permission (Server Team)
+### Step 4) Analysis of Initial Exposure
 
-The team collaborates with the server team to initiate scheduled credential scans. A compromise is reached to scan a single server first, monitoring resource impact, and using just-in-time Active Directory credentials for secure, controlled access.  
+The initial exposure phase of the honeypot project, designed to evaluate the vulnerabilities of unsecured virtual environments on Azure, yielded critical insights into the nature and frequency of cyber threats. By deliberately lowering defenses, such as disabling Windows Defender and modifying Network Security Group settings to permit all inbound traffic, both the Linux and Windows VMs attracted a wide range of attacks, including brute force SSH attacks and extensive network scanning. These activities were heavily documented and analyzed using Microsoft Sentinel and Azure Log Analytics Workspace, providing a detailed view of attack patterns and origins, particularly highlighting the global nature of cyber threats.
 
-#### Vulnerability Management Discussion
+![Analysis Stats](https://github.com/user-attachments/assets/c1321a23-20fc-4129-94fb-c596e046d8b3)
 
-**Josh**: Good morning, Jimmy!  
+**Types of Attacks Detected**
 
-**Jimmy**: Good morning! I heard you're ready to conduct some scans.  
+1.	**Brute Force SSH Attempts (Linux VMs)**:
 
-**Josh**: Yep, now that our vulnerability management policy is in place, I wanted to get started on conducting some scheduled credentialed scans of your environment.  
+**Description**: The SysLog and NSG flow logs recorded multiple failed SSH login attempts, indicating a brute force attack strategy aimed at guessing passwords to gain unauthorized access.
 
-**Jimmy**: Sounds good to me. What’s involved, and how can we help?  
+**Frequency**: High frequency, with numerous attempts recorded within a 24-hour period.
 
-**Josh**: We're planning to schedule weekly scans of the server infrastructure. We estimate it’ll take about 4 to 6 hours to scan all 200 assets. We’ll need you to provide administrative credentials so the scan engine can remotely log into the servers and assess them.  
+**Source**: Primarily from IP addresses that seem to originate from diverse geographic locations, as indicated by the initial review and subsequent heat map analyses.
 
-**Jimmy**: Whoa, hold on. What exactly does scanning entail? I’m a bit concerned about resource usage, also you want admin credentials for all 200 machines? That doesn’t sound safe.  
+2.	**Network Scanning and Probing (Windows VMs)**:
 
-**Josh**: Those are valid concerns. The scan engine sends different traffic to the servers to check for vulnerabilities. This includes looking at the registry, checking for outdated software, and identifying insecure protocols or suites. That’s why credentials are needed.  
+**Description**: Security event logs from the Windows VMs suggest various reconnaissance activities, including network scans which are typically preliminary activities to identify open ports and vulnerable services.
 
-**Jimmy**: I see. As long as it doesn’t take the servers offline, I think we’ll be okay.  
+**Frequency**: Multiple incidents were detected, pointing to systematic scanning activities.
 
-**Josh**: Absolutely. Let’s start by scanning just one server and monitor the resource utilization.  
+**Sources:** The heat maps created using Sentinel watchlists revealed that the majority of attack attempts originated from specific regions, notably Eastern Europe and East Asia, highlighting these as hotspots for the origin of malicious traffic.
 
-**Jimmy**: That sounds like a good idea.  
+![Sentinel Analytics](https://github.com/user-attachments/assets/900dc307-a87b-4153-aa78-eac9d7cfbf4f)
 
-**Josh**: Great. Also, for the credentials, could you set something up in Active Directory? You can leave the credentials disabled until we’re ready to scan, then enable them during the scan. Afterward, we can de-provision or disable the account. A kind of “just-in-time” access approach.  
+![Sentinel Incidents](https://github.com/user-attachments/assets/3aeec363-e156-4f6a-a7a7-5933512941f2)
 
-**Jimmy**: That sounds good. I’ll have Susan start working on the automation for account provisioning.  
+**Notable Security Incidents**
 
-**Josh**: Awesome. Talk soon!  
+1.	**High Volume of Inbound Malicious Flows (NSG Logs)**: The NSG logs showed 3,443 inbound malicious flows that were allowed, indicating significant exposure to network-based attacks. 
 
-**Jimmy**: Sounds good. I’ll get back to you once the credentials are set up. See you later!  
+2.	**Sentinel Incidents**: There were 239 security incidents logged by Microsoft Sentinel, 128 in the last 24 hours, which collated and analyzed security events from various sources to flag potential security breaches or suspicious activities.
 
-**Josh**: See you later!  
+![Sentinel Overview](https://github.com/user-attachments/assets/2338950f-72aa-4282-93d8-3d385c6928e1)
 
----
+**Frequency and Distribution of Attacks**
 
-### Step 5) Initial Scan of Server Team Assets
+The project setup ensured continuous monitoring, with the data showing a persistent and consistent pattern of attack attempts across both VMs. This persistent threat activity underscores the attractiveness of the honeypot to attackers.
 
-In this phase, an insecure Windows Server is provisioned to simulate the server team's environment. After creating vulnerabilities, an authenticated scan is performed, and the results are exported for future remediation steps.  
+The data collected serves as a fundamental baseline for the next phase of the project, where specific security hardening measures will be implemented and evaluated for their effectiveness in mitigating these identified threats. This process not only underscores the critical necessity for robust security measures but also sets the stage for data-driven enhancements to better protect networked systems.
 
-<img width="402" alt="Scan 1" src="https://github.com/user-attachments/assets/ef4d31b9-154f-4c1e-b79b-3c14f6b754f6" />
+![nsg-malicious-allowed-in](https://github.com/user-attachments/assets/7f516c4b-4392-4196-bf9d-bc2941bbbc43)
 
----
+![windows-rdp-auth-fail](https://github.com/user-attachments/assets/3ee577ad-81a2-4097-8f9d-abd63646c27d)
 
-### Step 6) Vulnerability Assessment and Prioritization
-
-We assessed vulnerabilities and established a remediation prioritization strategy based on ease of remediation and impact. The following priorities were set:
-
-1. Third Party Software Removal (Wireshark)
-2. Windows OS Secure Configuration (Protocols & Ciphers)
-3. Windows OS Secure Configuration (Guest Account Group Membership)
-4. Windows OS Updates
+![linux-ssh-auth-fail](https://github.com/user-attachments/assets/2bd32dc3-198e-47a7-8420-bf4ff34730de)
 
 ---
 
-### Step 7) Distributing Remediations to Remediation Teams
+## System Hardening
 
-The server team received remediation scripts and scan reports to address key vulnerabilities. This streamlined their efforts and prepared them for a follow-up review.  
+In response to the identified gaps in the the NIST SP 800-53 R5 framework as well as information communicated by the MS Cloud Security Benchmark, targeted hardening efforts were prioritized to bolster the security of network communications and resource accessibility within the honeypot environment. Focusing on the System and Communications Protection domain substantially hardened the network security of the honeypot environment. The following is a new network Topology set up. Among other things,  one of the primary changes was the inclusion of the resources into a segmented network with extremely secure parameters.
 
-<img width="635" alt="image" src="https://github.com/user-attachments/assets/bbf9478f-e1d1-4898-846e-b510ec8c6f72">
+**Enhancements Undertaken:**
 
-[Remediation Email](https://github.com/joshmadakor1/lognpacific-public/blob/main/misc/remediation-email.md)
+1.	**Implementation of Private Endpoints:**
 
----
+•	**Private Links for Key Vault and Storage Accounts**: To mitigate the risk of unauthorized data exposure and interception, private endpoints were established for critical Azure resources such as the Key Vault and Storage accounts. These private links ensure that all data transmitted to and from these resources occurs within the Azure backbone network, thereby not exposing data to the public internet.
 
-### Step 8) Mock Meeting: Post-Initial Discovery Scan (Server Team)
+•	**Benefits**: This configuration significantly reduces the attack surface by ensuring that access to these resources is strictly controlled and not reachable via the public internet. It also complies with strict data residency and sovereignty requirements by confining data to a specific geographic region.
 
-The server team reviewed vulnerability scan results, identifying outdated software, insecure accounts, and deprecated protocols. The remediation packages were prepared for submission to the Change Control Board (CAB). 
+![PE Overview](https://github.com/user-attachments/assets/51daeec9-c6ab-42e0-ac16-d9e15756b1e1)
 
-#### Vulnerability Management Discussion
+![PE Blob Overview](https://github.com/user-attachments/assets/1469cfe4-2d6b-4cad-a4ef-af6e2e7fb1b1)
 
-**Josh**: Morning, Jimmy! How are you doing?  
+![PE AKV Overview](https://github.com/user-attachments/assets/1c4322cc-c6e6-4b22-bbba-3f6172dbcab3)
 
-**Jimmy**: Not bad for a Monday. How about you?  
+2.	**Firewall Configuration Adjustments:**
 
-**Josh**: I’m still alive, so I can’t complain. Before we dive into the vulnerabilities, how did the scan go on your end? Any outages or resource overutilization?  
+•	**NSG Rules Modification**: The Network Security Group (NSG) rules for the virtual machines were meticulously revised to deny all inbound and outbound traffic except from designated IP addresses, specifically the IP address of the security operations center. This stringent rule set ensures that only authorized personnel have network access to the honeypot VMs, thus significantly enhancing the security posture.
 
-**Jimmy**: The scan went well. We monitored it closely, and aside from all the open connections, we wouldn’t have even noticed a scan was happening.  
+•	**Benefits**: This measure not only minimizes the potential for malicious access but also aligns with the principle of least privilege, ensuring that only necessary communications are permitted. This configuration aids in effective perimeter security management and reduces the likelihood of accidental or malicious breaches.
 
-**Josh**: That’s good to hear. I didn’t expect any major issues, but we’ll keep monitoring going forward to ensure resource utilization stays in check. Do you mind if we dive into the findings?  
-**Jimmy**: Absolutely.  
+![Windows NSG](https://github.com/user-attachments/assets/7fa57ac0-c1f8-47da-a35b-424b0a82eb32)
 
-**Josh**: Great. Let me share my screen. Most of the vulnerabilities seem to come from outdated software, particularly Wireshark. You can see it’s installed on multiple servers, and the software is out of date.  
+![Linux NSG](https://github.com/user-attachments/assets/366ecc40-a721-4a6d-ae24-d1854f359a10)
 
-Another finding is that the local guest account on some servers belongs to the local administrators group, which is concerning. There were a few other vulnerabilities, such as the Microsoft Edge Chromium issues, which will likely be resolved by running Windows Updates.  
+Focusing on the System and Communications Protection, specifically the boundary protection enhancements substantially hardened the network security of the honeypot environment. In addressing these gaps identified by the NIST SP 800-53 R5 compliance framework, significant hardening measures were implemented within the honeypot project’s virtual environments. Private endpoints were established for the Key Vault and Storage account resources, ensuring that data interactions remain within the secure confines of the Azure network and not exposed to the public internet. Furthermore, the Network Security Group (NSG) rules were modified to deny all inbound and outbound traffic except from specified IP addresses, drastically reducing the risk of unauthorized access. These enhancements, markedly fortified the network security, aligning with data security standards and substantially mitigating potential cyber threats.
 
-We also found vulnerabilities involving self-signed certificates, which aren’t critical. Lastly, we should address the deprecated cipher suites and insecure protocols, like TLS 1.1 and 1.0, as they’re no longer secure, making this a critical vulnerability.  
+### Step 5) Post Hardening Analysis
 
-In summary, the main issues to remediate are:  
-- **Outdated Wireshark installations**.  
-- **Deprecated cipher suites and protocols**.  
-- **Removing the local guest account from the administrators group**.  
+The targeted hardening efforts focused on System and Communications Protection have substantially enhanced the overall security posture of the honeypot environment. By strategically applying improvements based on compliance frameworks and security benchmarks, the project now demonstrates a robust defence mechanism capable of significantly mitigating potential cyber threats. The results of these hardening measures provide a compelling testament to the efficacy of data-driven and compliance-focused security enhancements in protecting networked environments against increasingly sophisticated cyber-attacks.
 
-**Jimmy**: Interesting. The good news is most of our servers likely share these vulnerabilities, so remediation should be straightforward.  
+**Summary of Changes and Enhancements:**
 
-**Josh**: Exactly—a uniform issue makes things easier. Do you foresee any challenges with remediating the cipher suites and protocols?  
+The strategic enhancements based on the NIST SP 800-53 R5 framework and Microsoft Cloud Security Benchmark focused on tightening access controls and securing data transmissions:
 
-**Jimmy**: I doubt it’ll be a problem. We’ll run these changes through the next Change Control Board. As for Wireshark and the guest account, those shouldn’t be an issue either since they shouldn’t be on the servers in the first place. I’ll check with our CIS admins about that.  
+1.	**Private Endpoints for Key Vault and Storage Accounts**:
 
-**Josh**: Great. I’ll start building remediation packages to simplify the process for you.  
+•	**Impact**: By creating private endpoints, data transmissions to these critical resources were confined within the Azure private network, completely isolated from public internet exposure. This change significantly reduced the attack vectors available to external actors, as it removed the possibility of intercepting or accessing the data from outside the network.
 
-**Jimmy**: Sounds good.  
+•	**Resulting Data**: This led directly to the reduction of Syslog events to zero, indicating an elimination of common network-related security incidents such as reconnaissance and unauthorized access attempts.
 
-**Josh**: By the way, do you already have a patch management system in place for handling the Windows Update-related vulnerabilities?  
+2.	**Restrictive NSG Rules**:
 
-**Jimmy**: Yes, no worries there. Windows Updates are handled automatically, and everything should be patched by next week.  
+•	**Impact**: Modifying the NSG rules to deny all inbound and outbound traffic except from specific, authorized IP addresses dramatically reduced the risk profile by controlling exactly who could interact with the VMs. This measure effectively negated any unsolicited attempts to connect to the systems, which were previously possible due to the generic and open rules.
 
-**Josh**: Excellent. I’ll get started on researching the best ways to address the findings and have something ready for the next Change Control Board.  
+•	**Resulting Data**: This adjustment is reflected in the elimination of NSG Inbound Malicious Flows, dropping from 3,443 to zero, showcasing a complete stop of recognized malicious traffic entering the network.
 
-**Jimmy**: Sounds good. Talk to you soon.  
+3.	**Decrease in Security and Sentinel Incidents**:
 
-**Josh**: Cool, talk to you soon!  
+•	**Impact**: The overall reduction in exposure and attack surface also reduced the operational load on security monitoring tools, resulting in fewer anomalies needing investigation and response. With tighter security controls, fewer incidents of potential breaches or suspicious activities were detected.
 
+•	**Resulting Data**: Sentinel Incidents decreased from 239 to 36, indicating a more secure and controlled environment requiring fewer interventions.
 
----
+![Sentinel Overview](https://github.com/user-attachments/assets/d2c2dd79-b9eb-4c52-b4f0-f8f1887a387e)
 
-### Step 9) Mock CAB Meeting: Implementing Remediations
+![Sentinel Incidents](https://github.com/user-attachments/assets/c8eda0b1-d4dd-41ce-a069-892bf9e32251)
 
-The Change Control Board (CAB) reviewed and approved the plan to remove insecure protocols and cipher suites. The plan included a rollback script and a tiered deployment approach.  
+**Comparative Analysis:**
 
-#### CAB Vulnerability Remediation Discussion
+•	**Security Events (Windows VMs)**: Drastically reduced from 64,939 to 497 events, indicating a significant decrease in detected security threats. This represents a 99.23% drop. 
 
-**Johnny**: Next up on the list are a couple of vulnerability remediations for the server team. First, the removal of insecure protocols, and second, the removal of insecure cipher suites. It looks like Josh from the Risk department is working in conjunction with Jimmy from Infrastructure on this. Jimmy, do you want to walk us through the technical aspects of the change being implemented?  
+•	**Syslog (Linux VMs)**: Reduced to zero, highlighting the elimination of recorded security events or incidents. This represents a 100% drop.
 
-**Jimmy**: Normally, I would, but do you mind giving this one to Josh? He actually built the solution for us. We’re still getting used to the process.  
+•	**SecurityAlert (Microsoft Defender for Cloud)**: Remained at zero, consistent with the initial data, indicating no significant security alerts generated.
 
-**Josh**: Sure, I can explain. Insecure cipher suites and protocols mean that the system is capable of negotiating and using outdated algorithms or protocols that have been deprecated. For example, if a server only supports these insecure protocols, a system could connect using them, which poses a security risk.  
+•	**SecurityIncident (Sentinel Incidents)**: Decreased from 239 to 36 incidents, showing a substantial reduction in the number of security incidents logged. This represents an 84.94% drop.
 
-These settings are controlled by the Windows registry. The fix is straightforward—we wrote a PowerShell script that disables all the insecure protocols and cipher suites while enabling the secure, standardized ones. It’s a simple but effective solution.  
+•	**NSG Inbound Malicious Flows Allowed**: Reduced from 3,443 to zero, demonstrating a complete mitigation of malicious inbound traffic through stringent NSG rule enforcement. This represents a 100% drop.
 
-**Jack**: That sounds good, but what if something goes wrong? Do we have a rollback plan in place?  
+![Stats](https://github.com/user-attachments/assets/130dbdbb-a3c2-4ece-b798-a26aaced08b1)
 
-**Josh**: Absolutely. We’ve implemented a tiered deployment process. It starts with a pilot group of a few systems, then moves to pre-production, and finally to production for the full rollout.  
+The implemented hardening measures have profoundly impacted the security landscape of the honeypot environment. The implementation of private endpoints effectively removed the exposure of critical resources to potential external threats. Meanwhile, the meticulous revision of NSG rules has nearly eliminated unauthorized network access, directly contributing to the significant reduction in security incidents and malicious flows. These actions collectively have not only closed the previously identified security gaps but also aligned the project with best practices and compliance requirements.
 
-Additionally, we’ve built automated rollback scripts for each remediation. If any issues arise, the scripts will restore the original protocols and cipher suites, ensuring minimal disruption.  
-
-**Jack**: That’s reassuring. Since the fixes are just registry updates, I’m not too concerned.  
-
-**Josh**: Exactly, it’s a low-risk implementation. Any more questions?  
-
-**[No further questions from the group.]**  
-
-**Johnny**: Great, that wraps things up for this week’s CAB meeting. See you all next week!  
-
-**Group**: See you later!
-
-
----
-### Step 10 ) Remediation Effort
-
-**Remediation Round 1: Outdated Wireshark Removal**
-
-The server team used a PowerShell script to remove outdated Wireshark. A follow-up scan confirmed successful remediation.  
-[Wireshark Removal Script](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/remediation-wireshark-uninstall.ps1)  
-
-<img width="853" alt="Scan 2" src="https://github.com/user-attachments/assets/2807a01c-2a63-4478-8a64-cf86fa8380f3" />
-
-**Remediation Round 2: Insecure Protocols & Ciphers**
-
-The server team used PowerShell scripts to remediate insecure protocols and cipher suites. A follow-up scan verified successful remediation, and the results were saved for reference.  
-[PowerShell: Insecure Protocols Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-protocols.ps1)
-[PowerShell: Insecure Ciphers Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-cipher-suites.ps1)
-
-<img width="848" alt="Scan 3" src="https://github.com/user-attachments/assets/29685f17-c995-47fa-b1f5-56a9d38975d9" />
-
-**Remediation Round 3: Guest Account Group Membership**
-
-The server team removed the guest account from the administrator group. A new scan confirmed remediation, and the results were exported for comparison.  
-[PowerShell: Guest Account Group Membership Remediation](https://github.com/joshmadakor1/lognpacific-public/blob/main/automation/toggle-guest-local-administrators.ps1)  
-
-<img width="907" alt="Scan 4" src="https://github.com/user-attachments/assets/c18d0430-e4cc-4573-a7be-6675161c0f85" />
-
-**Remediation Round 4: Windows OS Updates**
-
-Windows updates were re-enabled and applied until the system was fully up to date. A final scan verified the changes  
-
-<img width="905" alt="Scan 5" src="https://github.com/user-attachments/assets/af441fdb-7f5f-472e-8825-701fc960a0c6" />
+Post-implementation, a follow-up compliance assessment showed marked improvements in meeting the NIST SP 800-53 R5 controls related to system and communications protection. The measures specifically addressed previously identified deficiencies, resulting in a higher overall compliance score.
 
 ---
 
-### First Cycle Remediation Effort Summary
+Post-implementation, a follow-up compliance assessment showed marked improvements in meeting the NIST SP 800-53 R5 controls related to system and communications protection. The measures specifically addressed previously identified deficiencies, resulting in a higher overall compliance score.
 
-The remediation process reduced total vulnerabilities by 80%, from 30 to 6. Critical vulnerabilities were resolved by the second scan (100%), and high vulnerabilities dropped by 90%. Mediums were reduced by 76%. In an actual production environment, asset criticality would further guide future remediation efforts.  
+### Step 6) Conclusion
 
-<img width="605" alt="Chart" src="https://github.com/user-attachments/assets/afef6535-0d95-44a4-b19b-a894d8b917cf" />
+The honeypot project, meticulously conducted using Microsoft Azure’s robust virtual machine capabilities, adeptly achieved several key objectives centered around cybersecurity enhancement and vulnerability assessment. Initially designed to expose network vulnerabilities, the project employed Azure VMs in a controlled, exposed environment to gather actionable data on attack patterns and system vulnerabilities. This initial phase successfully cataloged a significant volume of security incidents, with the Windows VMs alone recording 64,939 security events, which vividly illustrated the systems’ susceptibility to external threats.
 
-[Remediation Data](https://docs.google.com/spreadsheets/d/1cr3xjuoHGy_XTyVxa3yo96gj9QPJ0XIo0JSn9IHJzCU/edit?usp=sharing)
+Subsequently, the project’s focus shifted towards hardening these virtual environments based on the insights gained from the initial exposure. Through targeted security measures such as the implementation of private endpoints for critical Azure resources and stringent adjustments to Network Security Group (NSG) rules, the project not only fortified the VMs but also drastically curtailed the frequency of intrusions. Post-hardening data highlighted a monumental reduction in security events—over 99% for Windows VMs and a complete eradication of Syslog events for Linux VMs, which effectively demonstrated the efficacy of the implemented hardening strategies.
+
+Throughout the project, attack data was meticulously analyzed to discern trends and patterns, guiding subsequent enhancements in security protocols. This analytical approach was instrumental in reducing detected intrusions by a remarkable percentage, showcasing a significant improvement in the VMs’ security postures. Moreover, each phase of the project was thoroughly documented, resulting in detailed reports and presentations that not only chronicled the project’s progress and findings but also significantly enhanced organizational understanding of the potential security threats. These documents serve as a valuable resource for ongoing security strategy adjustments and for educating stakeholders on effective cybersecurity practices.
+
+In conclusion, this honeypot project not only met but exceeded its objectives by demonstrating a profound transformation from a highly vulnerable to a securely hardened environment. It serves as a compelling example of how targeted cybersecurity measures, underpinned by a deep analysis of attack data and trends, can dramatically enhance the security of networked systems. The project’s success lays a foundation for future security initiatives and provides a replicable model for similar cybersecurity enhancements across the industry.
 
 ---
-
-### On-going Vulnerability Management (Maintenance Mode)
-
-After completing the initial remediation cycle, the vulnerability management program transitions into **Maintenance Mode**. This phase ensures that vulnerabilities continue to be managed proactively, keeping systems secure over time. Regular scans, continuous monitoring, and timely remediation are crucial components of this phase. (See [Finalized Policy](https://docs.google.com/document/d/1rvueLX_71pOR8ldN9zVW9r_zLzDQxVsnSUtNar8ftdg/edit?usp=drive_link) for scanning and remediation cadence requirements.)
-
-Key activities in Maintenance Mode include:
-- **Scheduled Vulnerability Scans**: Perform regular scans (e.g., weekly or monthly) to detect new vulnerabilities as systems evolve.
-- **Patch Management**: Continuously apply security patches and updates, ensuring no critical vulnerabilities remain unpatched.
-- **Remediation Follow-ups**: Address newly identified vulnerabilities promptly, prioritizing based on risk and impact.
-- **Policy Review and Updates**: Periodically review the Vulnerability Management Policy to ensure it aligns with the latest security best practices and organizational needs.
-- **Audit and Compliance**: Conduct internal audits to ensure compliance with the vulnerability management policy and external regulations.
-- **Ongoing Communication with Stakeholders**: Maintain open communication with teams responsible for remediation, ensuring efficient coordination.
-
-By maintaining an active vulnerability management process, organizations can stay ahead of emerging threats and ensure long-term security resilience.

@@ -114,6 +114,8 @@ To facilitate comprehensive data collection, a variety tools & Azure resources w
 
 •	A Microsoft Defender for Cloud instance was activated to aggregate comprehensive security data, including system events, network activities, and detailed security logs from both Windows and Linux VMs. This information is crucial for understanding the security posture of each VM and is stored within the Log Analytics workspace for subsequent analysis.
 
+![Defender Security Posture Score](https://github.com/user-attachments/assets/a6bf79ec-3927-4e6a-93d4-54e147551893)
+
 4.	**Azure Storage Account**:
 
 •	An Azure Storage Account was provisioned to manage the storage of raw log data, particularly for high-volume logs such as Network Security Group (NSG) flow logs. This setup ensures that large datasets are managed efficiently before they are processed and analyzed in the Log Analytics Workspace.
@@ -210,6 +212,9 @@ The data collected serves as a fundamental baseline for the next phase of the pr
 
 In response to the identified gaps in the the NIST SP 800-53 R5 framework as well as information communicated by the MS Cloud Security Benchmark, targeted hardening efforts were prioritized to bolster the security of network communications and resource accessibility within the honeypot environment. Focusing on the System and Communications Protection domain substantially hardened the network security of the honeypot environment. The following is a new network Topology set up. Among other things,  one of the primary changes was the inclusion of the resources into a segmented network with extremely secure parameters.
 
+![NIST 800-53](https://github.com/user-attachments/assets/a4774c97-64b2-42a0-8d03-cbc64c218ff0)
+
+
 **Enhancements Undertaken:**
 
 1.	**Implementation of Private Endpoints:**
@@ -285,8 +290,6 @@ The implemented hardening measures have profoundly impacted the security landsca
 Post-implementation, a follow-up compliance assessment showed marked improvements in meeting the NIST SP 800-53 R5 controls related to system and communications protection. The measures specifically addressed previously identified deficiencies, resulting in a higher overall compliance score.
 
 ---
-
-Post-implementation, a follow-up compliance assessment showed marked improvements in meeting the NIST SP 800-53 R5 controls related to system and communications protection. The measures specifically addressed previously identified deficiencies, resulting in a higher overall compliance score.
 
 ### Step 6) Conclusion
 

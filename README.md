@@ -1,6 +1,6 @@
 # Azure-Honeypot🍯
 
-In this Honeypot project, we The project’s main objective was to expose, monitor, record, and then secure virtual machines against sophisticated cyber threats, utilizing a suite of Azure tools including Azure Log Analytics, Microsoft Sentinel, and Microsoft Defender for Cloud.
+The project’s main objective was to expose, monitor, record, and then secure virtual machines against sophisticated cyber threats, utilizing a suite of Azure tools including Azure Log Analytics, Microsoft Sentinel, and Microsoft Defender for Cloud.
 
 _**Inception State:**_ The project deployed a dual-phased approach: initially establishing an exposed environment to catalog and analyze potential attack vectors, followed by a secondary phase of implementing targeted hardening strategies. This methodology not only showcased the initial vulnerabilities but also highlighted the dramatic improvements in security that could be achieved through systematic adjustments based on the NIST 800-53 framework.
 
